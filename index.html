@@ -40,6 +40,8 @@
   /* Header */
   .header {
     padding: 32px 40px;
+    max-width: 820px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -77,6 +79,7 @@
   .hero {
     padding: 60px 40px 50px;
     max-width: 820px;
+    margin: 0 auto;
     position: relative;
   }
 
@@ -134,12 +137,13 @@
   .body-section {
     padding: 0 40px 50px;
     max-width: 680px;
+    margin: 0 auto;
   }
 
   .body-copy {
     font-size: 17px;
     line-height: 1.75;
-    color: #444;
+    color: var(--va-dark);
     font-weight: 400;
   }
 
@@ -164,7 +168,7 @@
   .price-unit {
     font-size: 18px;
     font-weight: 500;
-    color: var(--va-mid-grey);
+    color: var(--va-dark);
   }
 
   /* Divider stripe */
@@ -220,6 +224,7 @@
 
   .form-container {
     max-width: 520px;
+    margin: 0 auto;
   }
 
   .form-heading {
@@ -233,7 +238,7 @@
 
   .form-subtext {
     font-size: 15px;
-    color: var(--va-mid-grey);
+    color: var(--va-dark);
     margin-bottom: 36px;
     line-height: 1.6;
   }
@@ -248,7 +253,7 @@
     font-weight: 700;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--va-mid-grey);
+    color: var(--va-dark);
     margin-bottom: 8px;
   }
 
@@ -312,7 +317,7 @@
   .limited-note {
     margin-top: 20px;
     font-size: 13px;
-    color: var(--va-mid-grey);
+    color: var(--va-dark);
     font-weight: 500;
   }
 
@@ -320,6 +325,7 @@
   .why-section {
     padding: 50px 40px 56px;
     max-width: 820px;
+    margin: 0 auto;
   }
 
   .why-heading {
@@ -543,14 +549,12 @@
 </section>
 
 <script>
-  // Form submission handler — replace URL with your Google Apps Script web app URL
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2QC47rqXbPTgmXRiinQQdTm1748e6UDztjGR3xmZxAFGvZLvA2GOqFeHSMFcsFkse/exec';
 
   document.getElementById('registration-form').addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const btn = this.querySelector('.submit-btn');
-    const originalText = btn.textContent;
     btn.textContent = 'SENDING...';
     btn.disabled = true;
 
@@ -574,15 +578,60 @@
       btn.textContent = 'REGISTERED ✓';
       btn.style.background = '#222';
 
-      // Replace form with confirmation
       setTimeout(() => {
-        document.querySelector('.form-container').innerHTML = `
-          <h2 class="form-heading" style="margin-bottom: 12px;">You're on the list.</h2>
-          <p class="form-subtext" style="margin-bottom: 0; font-size: 16px; color: #666;">
-            We'll be in touch shortly to get things moving. Keep an eye on your inbox.
-          </p>
+        document.body.innerHTML = `
+          <div style="
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            text-align: center;
+            background: #FFFFFF;
+          ">
+            <div style="
+              width: 64px;
+              height: 64px;
+              border-radius: 50%;
+              background: #E4181E;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-bottom: 32px;
+            ">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h1 style="
+              font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+              font-size: 36px;
+              font-weight: 900;
+              letter-spacing: 1px;
+              text-transform: uppercase;
+              color: #1A1A1A;
+              margin-bottom: 16px;
+            ">You're on the list.</h1>
+            <p style="
+              font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+              font-size: 17px;
+              line-height: 1.6;
+              color: #1A1A1A;
+              max-width: 440px;
+            ">Thanks for registering your interest, ${formData.firstName}. We'll be in touch shortly to get you set up.</p>
+            <div style="
+              margin-top: 48px;
+              font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+              font-weight: 900;
+              font-size: 18px;
+              color: #E4181E;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+            ">Virgin <span style="color: #1A1A1A; font-weight: 500;">Active</span></div>
+          </div>
         `;
-      }, 1200);
+      }, 1000);
 
     } catch (error) {
       btn.textContent = 'TRY AGAIN';
